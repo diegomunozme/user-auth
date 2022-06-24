@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import app from "./firebase";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 
@@ -10,7 +8,7 @@ const App = () => {
     <div className="app">
       <Router>
         <Routes>
-          <Route exact path="/" component={Login}/>
+          <Route exact path="/" element={<Login/>}/>
         </Routes>
       </Router>
     </div>
