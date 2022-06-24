@@ -16,7 +16,7 @@ import {
   collection,
   where,
   addDoc,
-} from "firebase/firestore/lite";
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,16 +33,19 @@ const firebaseConfig = {
   measurementId: "G-NNBP3MKH3N",
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Configuring our application to recognize the project and initialize authentication
 // and database modules... or is it SDK's?
-const db = getFirestore(app);
-const auth = getAuth(app);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 
 // First, try and login using a gmail account
 const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = async () => {
+
+
+export const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -60,9 +63,10 @@ const signInWithGoogle = async () => {
     console.error(err);
     alert(err.message);
   }
+};
 
   //Logging in users who already are registered with us
-  const logInWithEmailAndPassword = async (email, password) => {
+  export const logInWithEmailAndPassword = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
@@ -71,7 +75,7 @@ const signInWithGoogle = async () => {
     }
   };
 
-  const registerWithEmailAndPassword = async (name, email, password) => {
+  export const registerWithEmailAndPassword = async (name, email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
@@ -88,7 +92,7 @@ const signInWithGoogle = async () => {
   };
 
   // Resetting a customers email for when they forget credential information
-  const sendPasswordReset = async (email) => {
+  export const sendPasswordReset = async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
       alert("Password reset link sent!!!");
@@ -101,6 +105,12 @@ const signInWithGoogle = async () => {
       signOut(auth);
     };
   };
-};
 
-export default app;
+/*export {
+
+  ,
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  sendPasswordReset,
+  logout,
+};*/
