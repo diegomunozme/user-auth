@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import app from "./firebase-config";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./Login";
 
-const Schools = () => {
-  const [schools, setSchools] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const ref = app.collection();
-  console.log(ref)
-  const db = getFirestore(app);
-  console.log(db.collection("schools"));
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  };
+const App = () => {
+  
   return (
-    <div>
-      <h1>Schools</h1>
-      {schools.map((school) => (
-        <div key={school.id}>
-          <h2>{school.title}</h2>
-          <p>{school.desc}</p>
-        </div>
-      ))}
+    <div className="app">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login}/>
+        </Switch>
+      </Router>
     </div>
   );
 };
