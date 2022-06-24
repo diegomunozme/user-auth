@@ -1,66 +1,30 @@
-import { useState } from "react";
-import "./App.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase-config";
+import React, { useState } from "react";
+import app from "./firebase-config";
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
-function App() {
-  const [RegisterEmail, setRegisterEmail] = useState("");
-  const [RegisterPassword, setRegisterPassword] = useState("");
-  const [LoginEmail, setLoginEmail] = useState("");
-  const [LoginPassword, setLoginPassword] = useState("");
+const Schools = () => {
+  const [schools, setSchools] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        RegisterEmail,
-        RegisterPassword
-      );
-    } catch (error) {
-      console.log(error.message);
-    }
+  const ref = app.collection();
+  console.log(ref)
+  const db = getFirestore(app);
+  console.log(db.collection("schools"));
+
+  if (loading) {
+    return <h1>Loading...</h1>;
   };
-
-  const login = async () => {};
-  const logout = async () => {};
-
   return (
-    <div className="App">
-      <div>
-        <h3>Register User</h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }}
-        />
-        <button onClick={register}>Create user</button>
-      </div>
-      <div>
-        <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
-
-        <button> Login </button>
-      </div>
+    <div>
+      <h1>Schools</h1>
+      {schools.map((school) => (
+        <div key={school.id}>
+          <h2>{school.title}</h2>
+          <p>{school.desc}</p>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-export default App;
+export default Schools;
