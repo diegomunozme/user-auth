@@ -92,7 +92,7 @@ export const signInWithGoogle = async () => {
   };
 
   // Resetting a customers email for when they forget credential information
-  export const sendPasswordReset = async (email) => {
+  export const sendPasswordResetEmail = async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
       alert("Password reset link sent!!!");
