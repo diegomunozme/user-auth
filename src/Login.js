@@ -18,7 +18,7 @@ const Login = () => {
       //Look into triggering a loading screen
       return;
     }
-    if (user) navigate("./dashboard");
+    //if (user) navigate("./dashboard");
   }, [user, loading]);
 
   return (
